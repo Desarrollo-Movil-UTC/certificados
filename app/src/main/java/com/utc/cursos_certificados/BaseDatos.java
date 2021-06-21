@@ -7,11 +7,17 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class BaseDatos extends SQLiteOpenHelper {
     private static final String nombreBdd = "bdd_certificados"; //definiendo el nombre dela Bdd
-    private static final int versionBdd = 1; //definiendo la version de la BDD
+    private static final int versionBdd = 2; //definiendo la version de la BDD
 
     //estructura de la tabla usuarios
     private static final String tablaUsuario = "create table usuario(id_usu integer primary key autoincrement," +
             "cedula_usu text, nombre_usu text, apellido_usu text, telefono_usu text, is_admin_usu boolean, email_usu text, password_usu text)"; // definiendo estructura de la tabla usuarios
+
+    //estructura de la tabla Curso
+    private static final String tablaCurso = "create table curso(id_cur integer primary key autoincrement," +
+            "nombre_cur text, fecha_inicio_cur text, fecha_fin_cur text, duracion_cur integer, precio_cur float);";
+
+
     /*
     //estructura de la tabla cliente
     private static final String tablaCliente = "create table cliente(id_cli integer primary key autoincrement," +
@@ -31,6 +37,7 @@ public class BaseDatos extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(tablaUsuario); // ejecutando el query DDl(sentencia de definicion de datos) para crear la tabla usuarios con sus atributos
+        db.execSQL(tablaCurso);
         //db.execSQL(tablaCliente);// ejecutando el query DDl(sentencia de definicion de datos) para crear la tabla clientes
         //db.execSQL(tablaProducto);// ejecutando el query DDl(sentencia de definicion de datos) para crear la tabla Producto
     }
@@ -41,6 +48,11 @@ public class BaseDatos extends SQLiteOpenHelper {
         //cuando se actualice
         db.execSQL("DROP TABLE IF EXISTS usuario");//elimincacion de la version anterior de la tabla usuarios se puee usar otro comando Dll como alter table
         db.execSQL(tablaUsuario); //Ejecucion del codigo para crear la tabla usuaios con su nueva estructura
+
+        db.execSQL("DROP TABLE IF EXISTS curso");//elimincacion de la version anterior de la tabla usuarios se puee usar otro comando Dll como alter table
+        db.execSQL(tablaCurso); //Ejecucion del codigo para crear la tabla usuaios con su nueva estructura
+
+
         /*
         db.execSQL("DROP TABLE IF EXISTS cliente");//elimincacion de la version anterior de la tabla cliente se puee usar otro comando Dll como alter table
         db.execSQL(tablaCliente); //Ejecucion del codigo para crear la tabla cliente con su nueva estructura
@@ -70,7 +82,6 @@ public class BaseDatos extends SQLiteOpenHelper {
         return false; //retorno cuando no existe la BDD
     }
 
-
     //Proceso 4 para consultar usuarios por email y password.
     public Cursor obtenerUsuarioPorEmailPassword(String email, String password) {
         SQLiteDatabase miBdd = getWritableDatabase(); // llamado a la base de datos
@@ -85,6 +96,65 @@ public class BaseDatos extends SQLiteOpenHelper {
             //no se encuentra informacion de usuaio -> no existe o porque el email y password son incorrectos
             return null; //devuelvo null si no hay
         }
+    }
+
+    public Cursor obtenerEstudiantes(){
+        SQLiteDatabase miBdd = getWritableDatabase(); //objeto para manejar la base de datos
+
+        //consultando los productos en la base de datos y guardando en un cursor
+        Cursor cursos=miBdd.rawQuery("select * from usuario;", null);
+        //validar si se encontro o no clientes
+        if (cursos.moveToFirst()){
+            miBdd.close();
+            //retornar el cursor que contiene el listado de cliente
+            return cursos; // retornar el cursor que contiene el listado de productos
+        }else{
+            return null; //se retorna nulo cuando no hay productos dentro de la tabla
+        }
+    }
+
+    //CURSOS
+    public boolean agregarCurso(String nombreCurso, String fechaInicio, String fechaFin, Integer duracionCurso, Float precioCurso){
+        SQLiteDatabase miBdd =getWritableDatabase();
+        if (miBdd != null) { //validando que la base de datos exista(q no sea nula)
+            miBdd.execSQL("insert into curso(nombre_cur, fecha_inicio_cur, fecha_fin_cur,duracion_cur, precio_cur) " +
+                    "values  ('"+nombreCurso+"','"+fechaInicio+"','"+fechaFin+"','"+duracionCurso+"','"+precioCurso+"');");
+            //ejecutando la sentencia de insercion de SQL
+            miBdd.close(); //cerrando la conexion a la base de datos.
+            return true; // valor de retorno si se inserto exitosamente.
+        }
+        return false; //retorno cuando no existe la BDD
+    }
+
+
+    //Metodo para consultar productos existentes en la base ded datos
+    public Cursor obtenerCursos(){
+        SQLiteDatabase miBdd = getWritableDatabase(); //objeto para manejar la base de datos
+
+        //consultando los productos en la base de datos y guardando en un cursor
+        Cursor cursos=miBdd.rawQuery("select * from curso;", null);
+
+        if (cursos.moveToFirst()){ //validar si se encontro o no clientes
+            miBdd.close();
+            //retornar el cursor que contiene el listado de cliente
+            return cursos; // retornar el cursor que contiene el listado de productos
+        }else{
+            return null; //se retorna nulo cuando no hay productos dentro de la tabla
+        }
+    }
+
+    public boolean actualizarCurso(String nombreCurso, String fechaInicio, String fechaFin, Integer duracionCurso,
+                                   Float precioCurso, String id){
+        SQLiteDatabase miBdd = getWritableDatabase(); // objeto para manejar la base de datos
+        if(miBdd != null){
+            //proceso de actualizacion
+            miBdd.execSQL("update curso set nombre_cur='"+nombreCurso+"', " +
+                    "fecha_inicio_cur='"+fechaInicio+"', fecha_fin_cur='"+fechaFin+"', " +
+                    "duracion_cur='"+duracionCurso+"',precio_cur='"+precioCurso+"' where id_cur ="+id);
+            miBdd.close(); //cerrando la conexion coon la BDD
+            return true; //retornamos verdero ya que el proceso de actulaicacion fue exitoso
+        }
+        return false; // se retorna falso cuando no existe la base de datos
     }
 
     /*
@@ -183,6 +253,7 @@ public class BaseDatos extends SQLiteOpenHelper {
      */
 
 }
+
 
 
 
