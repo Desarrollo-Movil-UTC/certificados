@@ -7,16 +7,17 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class BaseDatos extends SQLiteOpenHelper {
     private static final String nombreBdd = "bdd_certificados"; //definiendo el nombre dela Bdd
-    private static final int versionBdd = 1; //definiendo la version de la BDD
+    private static final int versionBdd = 2; //definiendo la version de la BDD
 
     //estructura de la tabla usuarios
     private static final String tablaUsuario = "create table usuario(id_usu integer primary key autoincrement," +
             "cedula_usu text, nombre_usu text, apellido_usu text, telefono_usu text, is_admin_usu boolean, email_usu text, password_usu text)"; // definiendo estructura de la tabla usuarios
-    /*
-    //estructura de la tabla cliente
-    private static final String tablaCliente = "create table cliente(id_cli integer primary key autoincrement," +
-            "cedula_cli text, apellido_cli text, nombre_cli text, telefono_cli text, direccion_cli text)";
 
+    //estructura de la tabla Estudiantes
+    private static final String tablaEstudiante = "create table estudiante(id_est integer primary key autoincrement," +
+            "cedula_est text, nombre_est text, apellido_est text, telefono_est text, email_est text)";
+
+    /*
     //estructura de la tabla Productos
     private static final String tablaProducto = "create table producto(id_pro integer primary key autoincrement," +
             "nombre_pro text, precio_pro float, iva_pro boolean, stock_pro integer, fecha_caducidad_pro text);";
@@ -31,7 +32,7 @@ public class BaseDatos extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(tablaUsuario); // ejecutando el query DDl(sentencia de definicion de datos) para crear la tabla usuarios con sus atributos
-        //db.execSQL(tablaCliente);// ejecutando el query DDl(sentencia de definicion de datos) para crear la tabla clientes
+        db.execSQL(tablaEstudiante);// ejecutando el query DDl(sentencia de definicion de datos) para crear la tabla clientes
         //db.execSQL(tablaProducto);// ejecutando el query DDl(sentencia de definicion de datos) para crear la tabla Producto
     }
 
@@ -41,10 +42,11 @@ public class BaseDatos extends SQLiteOpenHelper {
         //cuando se actualice
         db.execSQL("DROP TABLE IF EXISTS usuario");//elimincacion de la version anterior de la tabla usuarios se puee usar otro comando Dll como alter table
         db.execSQL(tablaUsuario); //Ejecucion del codigo para crear la tabla usuaios con su nueva estructura
-        /*
-        db.execSQL("DROP TABLE IF EXISTS cliente");//elimincacion de la version anterior de la tabla cliente se puee usar otro comando Dll como alter table
-        db.execSQL(tablaCliente); //Ejecucion del codigo para crear la tabla cliente con su nueva estructura
 
+        db.execSQL("DROP TABLE IF EXISTS estudiante");//elimincacion de la version anterior de la tabla estudiante se puee usar otro comando Dll como alter table
+        db.execSQL(tablaEstudiante); //Ejecucion del codigo para crear la tabla cliente con su nueva estructura
+
+        /*
         db.execSQL("DROP TABLE IF EXISTS producto");//elimincacion de la version anterior de la tabla producto se puee usar otro comando Dll como alter table
         db.execSQL(tablaProducto); //Ejecucion del codigo para crear la tabla producto con su nueva estructura
          */
@@ -55,7 +57,6 @@ public class BaseDatos extends SQLiteOpenHelper {
          r -> leer
          U -> ACTUALIZAR
          D -> eliminar
-
      */
 
     //proceso 3: metodo para insertar datos de la tabla usuarios , retorno true cuando inserto y false cuando hay algun error
@@ -69,7 +70,6 @@ public class BaseDatos extends SQLiteOpenHelper {
         }
         return false; //retorno cuando no existe la BDD
     }
-
 
     //Proceso 4 para consultar usuarios por email y password.
     public Cursor obtenerUsuarioPorEmailPassword(String email, String password) {
@@ -87,15 +87,15 @@ public class BaseDatos extends SQLiteOpenHelper {
         }
     }
 
-    /*
-    // CRUD para clientes
 
-    //agregar un nuevo cliente
-    public boolean agregarCliente(String cedula, String apellido, String nombre, String telefono, String direccion){
+    // CRUD para Estudiantes
+
+    //agregar un nuevo estudiante
+    public boolean agregarEstudiante(String cedula, String nombre, String apellido, String telefono, String email){
         SQLiteDatabase miBdd =getWritableDatabase();
         if (miBdd != null) { //validando que la base de datos exista(q no sea nula)
-            miBdd.execSQL("insert into cliente(cedula_cli, apellido_cli, nombre_cli,telefono_cli, direccion_cli) " +
-                    "values  ('"+cedula+"','"+apellido+"','"+nombre+"','"+telefono+"','"+direccion+"');");
+            miBdd.execSQL("insert into estudiante(cedula_est, nombre_est, apellido_est,telefono_est, email_est) " +
+                    "values  ('"+cedula+"','"+nombre+"','"+apellido+"','"+telefono+"','"+email+"');");
               //ejecutando la sentencia de insercion de SQL
             miBdd.close(); //cerrando la conexion a la base de datos.
             return true; // valor de retorno si se inserto exitosamente.
@@ -103,30 +103,29 @@ public class BaseDatos extends SQLiteOpenHelper {
         return false; //retorno cuando no existe la BDD
     }
 
-    //Metodo para consultar clientes existentes en la base ded datos
-    public Cursor obtenerClientes(){
+    //Metodo para consultar estudiantes existentes en la base ded datos
+    public Cursor obtenerEstudiantes(){
         SQLiteDatabase miBdd = getWritableDatabase(); //objeto para manejar la base de datos
         //consultando los clientes en la base de datos y guardando en un cursor
-        Cursor clientes=miBdd.rawQuery("select * from cliente;", null);
+        Cursor estudiantes=miBdd.rawQuery("select * from estudiante;", null);
         //validar si se encontro o no clientes
-        if (clientes.moveToFirst()){
+        if (estudiantes.moveToFirst()){
             miBdd.close();
             //retornar el cursor que contiene el listado de cliente
-            return clientes; // retornar el cursor que contiene el listado de clietnes
+            return estudiantes; // retornar el cursor que contiene el listado de clietnes
         }else{
             return null; //se retorna nulo cuando no hay clientes dentro de la tabla
         }
     }
 
-    //metodo para actializr un cliente
-    public boolean actualizarCliente(String cedula, String apellido, String nombre, String telefono,
-                                     String direccion, String id){
+    //metodo para actializar un estudiante
+    public boolean actualizarEstudiante(String cedula, String nombre, String apellido, String telefono, String email, String id){
         SQLiteDatabase miBdd = getWritableDatabase(); // objeto para manejar la base de datos
         if(miBdd != null){
             //proceso de actualizacion
-            miBdd.execSQL("update cliente set cedula_cli='"+cedula+"', " +
-                    "apellido_cli='"+apellido+"', nombre_cli='"+nombre+"', " +
-                    "telefono_cli='"+telefono+"',direccion_cli='"+direccion+"' where id_cli="+id);
+            miBdd.execSQL("update estudiante set cedula_est='"+cedula+"', " +
+                    "nombre_est='"+nombre+"', apellido_est='"+apellido+"', " +
+                    "telefono_est='"+telefono+"',email_est='"+email+"' where id_est="+id);
             miBdd.close(); //cerrando la conexion coon la BDD
             return true; //retornamos verdero ya que el proceso de actulaicacion fue exitoso
         }
@@ -134,11 +133,11 @@ public class BaseDatos extends SQLiteOpenHelper {
     }
 
 
-    //Metodo para eliminar un regostro de clietnes
-    public boolean eliminarCliente(String id){
+    //Metodo para eliminar un registro de un estudiante
+    public boolean eliminarEstudiante(String id){
         SQLiteDatabase miBdd = getWritableDatabase(); // objeto para manejar la base de datos
         if(miBdd != null){ //validando que la bdd realmente exista
-            miBdd.execSQL("delete from cliente where id_cli="+id); //ejecucion de la sentencia Sql para eliminar
+            miBdd.execSQL("delete from estudiante where id_est="+id); //ejecucion de la sentencia Sql para eliminar
             miBdd.close();
             return true; // //retornamos verdero ya que el proceso de eliminacion fue exitoso
         }
@@ -147,7 +146,7 @@ public class BaseDatos extends SQLiteOpenHelper {
 
 
 
-
+/*
 
     //crud para productos
     //agregar un nuevo Producto

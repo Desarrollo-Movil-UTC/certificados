@@ -57,6 +57,10 @@ public class GestionCursosActivity extends AppCompatActivity {
             Toast.makeText(this, "gestion de Cursos" ,Toast.LENGTH_LONG).show();
         }else if(id == R.id.gestionEstudiantes){
             Toast.makeText(this, "gestion de Estudiantes" ,Toast.LENGTH_LONG).show();
+            Intent ventanaEstudiantes=new Intent(getApplicationContext(),EstudiantesActivity.class); //construyendo un objeto de tipo ventana para poder abrir la ventana de login
+            startActivity(ventanaEstudiantes); //solicitamos que habra el formulario de login
+            finish(); //cerrando la activity
+
         }else if (id == R.id.cerrarSesion){
             //cerrar sesion
             editor.putBoolean(llave,false);
@@ -65,7 +69,7 @@ public class GestionCursosActivity extends AppCompatActivity {
             //redirijo a la actividad de inicio de sesion y cierro el menu
             Intent ventanaLogin=new Intent(getApplicationContext(),MainActivity.class); //construyendo un objeto de tipo ventana para poder abrir la ventana de login
             startActivity(ventanaLogin); //solicitamos que habra el formulario de login
-            finish(); //cerrando la activity de bienvenida
+            finish(); //cerrando la activity
         }
         return super.onOptionsItemSelected(item);
 

@@ -105,7 +105,7 @@
                 android:layout_height="14dp" />
 
             <EditText
-                android:id="@+id/txtcedulaRegistro"
+                android:id="@+id/txtcedulaEst"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/texto_form"
@@ -124,7 +124,7 @@
                 android:layout_height="14dp" />
 
             <EditText
-                android:id="@+id/txtNombresRegistro"
+                android:id="@+id/txtNombresEst"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/texto_form"
@@ -143,7 +143,7 @@
                 android:layout_height="14dp" />
 
             <EditText
-                android:id="@+id/txtapellidosRegistro"
+                android:id="@+id/txtapellidosEst"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/texto_form"
@@ -162,7 +162,7 @@
                 android:layout_height="14dp" />
 
             <EditText
-                android:id="@+id/txtTelefonoRegistro"
+                android:id="@+id/txtTelefonoEst"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/texto_form"
@@ -180,7 +180,7 @@
                 android:layout_height="14dp" />
 
             <EditText
-                android:id="@+id/txtEmailRegistro"
+                android:id="@+id/txtEmailEst"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@drawable/texto_form"

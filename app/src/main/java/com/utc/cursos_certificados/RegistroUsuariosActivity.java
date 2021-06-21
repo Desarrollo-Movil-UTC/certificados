@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -34,11 +33,11 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro_usuarios);
         //mapeo de elementos
-        txtCedulaRegistro = (EditText)findViewById(R.id.txtcedulaRegistro);
-        txtNombresRegistro= (EditText)findViewById(R.id.txtNombresRegistro);
-        txtApellidosRegistro=(EditText)findViewById(R.id.txtapellidosRegistro);
-        txtTelefonoRegistro=(EditText)findViewById(R.id.txtTelefonoRegistro);
-        txtEmailRegistro= (EditText)findViewById(R.id.txtEmailRegistro);
+        txtCedulaRegistro = (EditText)findViewById(R.id.txtcedulaEst);
+        txtNombresRegistro= (EditText)findViewById(R.id.txtNombresEst);
+        txtApellidosRegistro=(EditText)findViewById(R.id.txtapellidosEst);
+        txtTelefonoRegistro=(EditText)findViewById(R.id.txtTelefonoEst);
+        txtEmailRegistro= (EditText)findViewById(R.id.txtEmailEst);
         txtPasswordRegistro=(EditText)findViewById(R.id.txtPasswordRegistro);
         txtPasswordConfirmada= (EditText)findViewById(R.id.txtPasswordConfirmada);
         miBdd= new BaseDatos(getApplicationContext()); //instanciar /construir la base de datos en el objeto mi bdd
