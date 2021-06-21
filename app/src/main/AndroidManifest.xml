@@ -9,8 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Cursoscertificados">
+<<<<<<< HEAD
         <activity android:name=".ActualizarEliminarEstudiantesActivity"></activity>
         <activity android:name=".EstudiantesActivity"></activity>
+=======
+        <activity android:name=".CertificadoEstudiante"></activity>
+        <activity android:name=".DatosEstudianteCursoActivity" />
+        <activity android:name=".EstudiantesPorCursoActivity" />
+        <activity android:name=".EditarCursoActivity" />
+        <activity android:name=".RegistroCursosActivity" />
+>>>>>>> 56721edc6f27f6522b9cfc91ec50b9730321d03e
         <activity android:name=".BienvenidaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
