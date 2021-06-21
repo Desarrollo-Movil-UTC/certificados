@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DatosEstudianteCursoActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#dee0e6"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="707dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="718dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/textView33"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Datos del Estudiante"
+                        android:textAlignment="center"
+                        android:textColor="#f55b59"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="match_parent"
+                        android:layout_height="67dp" />
+
+                    <TextView
+                        android:id="@+id/txtCedulaDatosEstudiante"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/texto_form"
+                        android:drawablePadding="12dp"
+                        android:ems="10"
+                        android:hint="Cédula"
+                        android:paddingLeft="20sp"
+                        android:paddingTop="6sp"
+                        android:textColor="#6E7692"
+                        android:textColorHint="#6E7692"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <TextView
+                        android:id="@+id/txtNombresDatosEstudiante"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/texto_form"
+                        android:drawablePadding="12dp"
+                        android:ems="10"
+                        android:hint="Nombres"
+                        android:paddingLeft="20sp"
+                        android:paddingTop="6sp"
+                        android:textColor="#6E7692"
+                        android:textColorHint="#6E7692"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <TextView
+                        android:id="@+id/txtApellidosDatosEstudiante"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/texto_form"
+                        android:drawablePadding="12dp"
+                        android:ems="10"
+                        android:hint="Apellidos "
+                        android:paddingLeft="20sp"
+                        android:paddingTop="6sp"
+                        android:textColor="#6E7692"
+                        android:textColorHint="#6E7692"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <TextView
+                        android:id="@+id/txtTelefonoDatosEstudiante"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/texto_form"
+                        android:ems="10"
+                        android:hint="Teléfono"
+                        android:paddingLeft="20sp"
+                        android:paddingTop="6sp"
+                        android:textColor="#6E7692"
+                        android:textColorHint="#6E7692"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <TextView
+                        android:id="@+id/txtEmailDatosEstudiante"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/texto_form"
+                        android:ems="10"
+                        android:hint="Correo Electrónico"
+                        android:paddingLeft="20sp"
+                        android:paddingTop="6sp"
+                        android:textColor="#6E7692"
+                        android:textColorHint="#6E7692"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <TextView
+                        android:id="@+id/txtCursoInscritoDatosEstudiante"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/texto_form"
+                        android:ems="10"
+                        android:hint="Curso Inscrito"
+                        android:paddingLeft="20sp"
+                        android:paddingTop="6sp"
+                        android:textColor="#6E7692"
+                        android:textColorHint="#6E7692"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/button"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:backgroundTint="#f55b59"
+                            android:drawableLeft="@drawable/ic_baseline_save"
+                            android:onClick="generarCertificadoEstudiante"
+                            android:text="Generar certificado"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20sp"
+                            app:cornerRadius="20dp"
+                            app:iconPadding="2dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/button3"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:backgroundTint="#F7F7F6"
+                            android:drawableLeft="?attr/homeAsUpIndicator"
+                            android:onClick="salirDatosEstudiante"
+                            android:text="Salir"
+                            android:textColor="#e55854"
+                            android:textSize="20sp"
+                            app:cornerRadius="20dp"
+                            app:iconPadding="2dp"
+                            app:strokeColor="#e55854" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

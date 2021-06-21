@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegistroCursosActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#dee0e6"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="416dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="416dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Gestión de Cursos"
+                        android:textAlignment="center"
+                        android:textColor="#f55b59"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <EditText
+                        android:id="@+id/txtNombreCurso"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/texto_form"
+                        android:drawablePadding="12dp"
+                        android:ems="10"
+                        android:hint="Nombre Curso"
+                        android:inputType="textPersonName"
+                        android:paddingLeft="20sp"
+                        android:textColor="#6E7692"
+                        android:textColorHint="#6E7692"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/txtFechaInicioCurso"
+                            android:layout_width="247dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/texto_form"
+                            android:clickable="true"
+                            android:drawablePadding="12dp"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:hint="Fecha de Inicio"
+                            android:inputType="none"
+                            android:paddingLeft="20sp"
+                            android:textColor="#6E7692"
+                            android:textColorHint="#6E7692"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="23dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <Button
+                            android:id="@+id/btnFechaInicio"
+                            android:layout_width="55dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="#e55854"
+                            android:drawableLeft="@android:drawable/ic_menu_month" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/txtFechaFinCurso"
+                            android:layout_width="245dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/texto_form"
+                            android:clickable="true"
+                            android:drawablePadding="12dp"
+                            android:ems="10"
+                            android:focusable="false"
+                            android:hint="Fecha de Finalización"
+                            android:inputType="none"
+                            android:paddingLeft="20sp"
+                            android:textColor="#6E7692"
+                            android:textColorHint="#6E7692"
+                            android:textSize="22sp" />
+
+                        <TextView
+                            android:id="@+id/textView9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <Button
+                            android:id="@+id/btnFechaFin"
+                            android:layout_width="29dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="#e55854"
+                            android:drawableLeft="@android:drawable/ic_menu_month" />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
+
+                    <EditText
+                        android:id="@+id/txtDuracionCurso"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/texto_form"
+                        android:drawablePadding="12dp"
+                        android:ems="10"
+                        android:hint="Horas de Duración"
+                        android:inputType="number"
+                        android:paddingLeft="20sp"
+                        android:textColor="#6E7692"
+                        android:textColorHint="#6E7692"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <EditText
+                        android:id="@+id/txtPrecioCurso"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/texto_form"
+                        android:drawablePadding="12dp"
+                        android:ems="10"
+                        android:hint="Precio"
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="20sp"
+                        android:textColor="#6E7692"
+                        android:textColorHint="#6E7692"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <Button
+                            android:id="@+id/button"
+                            android:layout_width="175dp"
+                            android:layout_height="50dp"
+                            android:backgroundTint="#f55b59"
+                            android:drawableLeft="@drawable/ic_baseline_save"
+                            android:onClick="registrarCurso"
+                            android:text="Guardar "
+                            android:textColor="#FFFFFF"
+                            android:textSize="18sp"
+                            app:cornerRadius="20dp"
+                            app:iconPadding="2dp" />
+
+                        <TextView
+                            android:id="@+id/textView122"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+
+                        <Button
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="50dp"
+                            android:backgroundTint="#F7F7F6"
+                            android:drawableLeft="@drawable/ic_baseline_cancel"
+                            android:onClick="LimpiarRegistroCurso"
+                            android:text="Cancelar"
+                            android:textColor="#e55854"
+                            android:textSize="18sp"
+                            app:cornerRadius="20dp"
+                            app:iconPadding="2dp"
+                            app:strokeColor="#e55854" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="315dp"
+                android:background="#e55854"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <ListView
+                    android:id="@+id/listCursos"
+                    android:layout_width="match_parent"
+                    android:layout_height="217dp">
+
+                </ListView>
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp" />
+
+                <Button
+                    android:id="@+id/button4"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:backgroundTint="#F7F7F6"
+                    android:drawableLeft="?attr/homeAsUpIndicator"
+                    android:onClick="salirRegistroCurso"
+                    android:text="Salir"
+                    android:textColor="#e55854"
+                    android:textSize="20sp"
+                    app:cornerRadius="20dp"
+                    app:iconPadding="2dp"
+                    app:strokeColor="#e55854" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
