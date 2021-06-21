@@ -138,15 +138,12 @@ public class GestionCursosActivity extends AppCompatActivity {
             finish(); //cerrando la activity
 
         }else if(id == R.id.gestionEstudiantes){
-<<<<<<< HEAD
+
             Toast.makeText(this, "gestion de Estudiantes" ,Toast.LENGTH_LONG).show();
             Intent ventanaEstudiantes=new Intent(getApplicationContext(),EstudiantesActivity.class); //construyendo un objeto de tipo ventana para poder abrir la ventana de login
             startActivity(ventanaEstudiantes); //solicitamos que habra el formulario de login
             finish(); //cerrando la activity
 
-=======
-            Toast.makeText(this, "gestion de estudiantes" ,Toast.LENGTH_LONG).show();
->>>>>>> 56721edc6f27f6522b9cfc91ec50b9730321d03e
         }else if (id == R.id.cerrarSesion){
             //cerrar sesion
             editor.putBoolean(llave,false);
