@@ -74,17 +74,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="14dp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/txtIdEst"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@drawable/texto_form"
                         android:drawablePadding="12dp"
-                        android:editable="true"
                         android:ems="10"
-                        android:hint="Id: "
-                        android:inputType="textNoSuggestions"
                         android:paddingLeft="20sp"
+                        android:text="id:"
                         android:textColor="#6E7692"
                         android:textColorHint="#6E7692"
                         android:textSize="22sp" />

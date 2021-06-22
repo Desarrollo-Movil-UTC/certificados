@@ -24,8 +24,8 @@ public class ActualizarEliminarEstudiantesActivity extends AppCompatActivity {
     //definicion de variables
     String id,cedula,apellido,nombre,telefono,email; // variables para capturar valores que vienen cmo parametro
     //definicion de objetos que vienen del xml
-    //TextView txtIdClienteEditar;
-    EditText txtIdEstudianteEditar, txtCedulaEstudianteEditar,txtNombreEstudianteEditar,txtApellidoEstudianteEditar,
+    TextView txtIdEstudianteEditar;
+    EditText txtCedulaEstudianteEditar,txtNombreEstudianteEditar,txtApellidoEstudianteEditar,
             txtTelefonoEstudianteEditar, txtEmailEstudianteEditar;
     //objeto para manejar conexciones a BDD
     BaseDatos bdd;
@@ -35,7 +35,7 @@ public class ActualizarEliminarEstudiantesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actualizar_eliminar_estudiantes);
         //mapeo de elmentos
-        txtIdEstudianteEditar=(EditText)findViewById(R.id.txtIdEst);
+        txtIdEstudianteEditar=(TextView)findViewById(R.id.txtIdEst);
         txtCedulaEstudianteEditar=(EditText)findViewById(R.id.txtcedulaEst);
         txtNombreEstudianteEditar=(EditText)findViewById(R.id.txtNombresEst);
         txtApellidoEstudianteEditar=(EditText)findViewById(R.id.txtapellidosEst);

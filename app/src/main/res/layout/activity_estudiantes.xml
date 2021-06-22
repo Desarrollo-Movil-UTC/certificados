@@ -141,6 +141,11 @@
             android:layout_width="match_parent"
             android:layout_height="14dp" />
 
+        <Spinner
+            android:id="@+id/comboCursos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:layout_width="385dp"
             android:layout_height="80dp"
@@ -187,15 +192,15 @@
 
       <LinearLayout
           android:layout_width="match_parent"
-          android:layout_height="361dp"
+          android:layout_height="288dp"
           android:background="#e55854"
           android:orientation="vertical"
-          android:padding="20dp" >
+          android:padding="20dp">
 
         <ListView
             android:id="@+id/lstEstudiantes"
             android:layout_width="match_parent"
-            android:layout_height="279dp" />
+            android:layout_height="200dp" />
 
         <Button
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
