@@ -2,7 +2,9 @@ package com.utc.cursos_certificados;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -25,8 +27,7 @@ public class CertificadoEstudiante extends AppCompatActivity {
     String nombreDirector;
 
     TextView textNombreCompletoEstudianteCertificado,
-            textNombreCursoCertificado, textDuracionCursoCertificado, textFechaInicioCursoCertificado, textFechaFinCursoCertificado,
-            textNombreDirectorCertificado;
+            textNombreCursoCertificado, textDuracionCursoCertificado, textFechaInicioCursoCertificado, textFechaFinCursoCertificado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +40,6 @@ public class CertificadoEstudiante extends AppCompatActivity {
         textDuracionCursoCertificado=(TextView) findViewById(R.id.textDuracionCursoCertificado);
         textFechaInicioCursoCertificado=(TextView) findViewById(R.id.textFechaInicioCursoCertificado);
         textFechaFinCursoCertificado=(TextView) findViewById(R.id.textFechaFinCursoCertificado);
-
-        textNombreDirectorCertificado=(TextView) findViewById(R.id.textNombreDirectorCertificado);
 
         //Recibe datos del estudiante por curso y datos del curso
         Bundle parametrosExtra = getIntent().getExtras();
@@ -67,13 +66,15 @@ public class CertificadoEstudiante extends AppCompatActivity {
         textDuracionCursoCertificado.setText(duracionCurso);
         textFechaInicioCursoCertificado.setText(fechaInicio);
         textFechaFinCursoCertificado.setText(fechaFin);
-
-        //textNombreDirectorCertificado.setText(cursoInscrito);
     }
 
     //Boton Salir
     public void salirCertificadoEstudiante(View vista) {
         Intent ventanaListaEstudiantesPorCurso = new Intent(getApplicationContext(), EstudiantesPorCursoActivity.class);
+        ventanaListaEstudiantesPorCurso.putExtra("nombreCurso", nombreCurso);
+        ventanaListaEstudiantesPorCurso.putExtra("fechaInicioCurso", fechaInicio);
+        ventanaListaEstudiantesPorCurso.putExtra("fechaFinCurso", fechaFin);
+        ventanaListaEstudiantesPorCurso.putExtra("duracionCurso", duracionCurso);
         startActivity(ventanaListaEstudiantesPorCurso);
         finish();
     }

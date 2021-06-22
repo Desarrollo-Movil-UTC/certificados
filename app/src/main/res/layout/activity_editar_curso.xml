@@ -25,15 +25,33 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="#FFFFFF"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/logo" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="466dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
                         android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Editar Cursos"
+                        android:text="Editar Curso"
                         android:textAlignment="center"
                         android:textColor="#f55b59"
                         android:textSize="24sp"
@@ -71,7 +89,7 @@
                         android:drawablePadding="12dp"
                         android:ems="10"
                         android:hint="Nombre Curso"
-                        android:inputType="textPersonName"
+                        android:inputType="textCapCharacters"
                         android:paddingLeft="20sp"
                         android:textColor="#6E7692"
                         android:textColorHint="#6E7692"

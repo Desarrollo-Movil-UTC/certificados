@@ -2,7 +2,9 @@ package com.utc.cursos_certificados;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -73,7 +75,7 @@ public class EstudiantesPorCursoActivity extends AppCompatActivity {
         txtNombreCursoEstudiantes.setText(nombreCurso);
         txtFechaInicioCursoEstudiantes.setText(fechaInicio);
         txtFechaFinCursoEstudiantes.setText(fechaFinal);
-        txtDuracionCursoEstudiantes.setText(duracion);
+        txtDuracionCursoEstudiantes.setText(duracion+" Horas");
 
         //generar acciones cuando se da click sobre un estudiante
         listEstudiantesPorCurso.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,8 +88,7 @@ public class EstudiantesPorCursoActivity extends AppCompatActivity {
                 String nombreEst = estudiantesObtenidosPorCurso.getString(2);
                 String apellidoEst = estudiantesObtenidosPorCurso.getString(3);
                 String telefonoEst = estudiantesObtenidosPorCurso.getString(4);
-                String emailEst = estudiantesObtenidosPorCurso.getString(6);
-                //String nombreCurso = estudiantesObtenidosPorCurso.getString(2);
+                String emailEst = estudiantesObtenidosPorCurso.getString(5);
 
                 //manejando el objeto para abrir la ventana de Datos del estudiante
                 Intent ventanaDatosEstudiante = new Intent(getApplicationContext(), DatosEstudianteCursoActivity.class);

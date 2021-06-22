@@ -71,6 +71,10 @@ public class DatosEstudianteCursoActivity extends AppCompatActivity {
     //Boton Salir
     public void salirDatosEstudiante(View vista) {
         Intent ventanaListaEstudiantesPorCurso = new Intent(getApplicationContext(), EstudiantesPorCursoActivity.class);
+        ventanaListaEstudiantesPorCurso.putExtra("nombreCurso", cursoInscrito);
+        ventanaListaEstudiantesPorCurso.putExtra("fechaInicioCurso", fechaIni);
+        ventanaListaEstudiantesPorCurso.putExtra("fechaFinCurso", fechaFin);
+        ventanaListaEstudiantesPorCurso.putExtra("duracionCurso", duracionC);
         startActivity(ventanaListaEstudiantesPorCurso);
         finish();
     }

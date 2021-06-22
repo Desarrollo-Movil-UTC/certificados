@@ -28,7 +28,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="117dp"
+                    android:layout_height="145dp"
                     android:background="#FFFFFF"
                     android:gravity="center_horizontal"
                     android:orientation="horizontal"
@@ -39,13 +39,13 @@
                     <ImageView
                         android:id="@+id/imageView4"
                         android:layout_width="199dp"
-                        android:layout_height="85dp"
+                        android:layout_height="111dp"
                         app:srcCompat="@drawable/logo" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="308dp"
+                    android:layout_height="374dp"
                     android:background="@color/white"
                     android:orientation="vertical"
                     android:padding="15dp">
@@ -205,46 +205,6 @@
                             android:layout_weight="1"
                             android:text="00/00/0000"
                             android:textSize="15dp" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="113dp"
-                    android:background="@color/white"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_horizontal"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/textView57"
-                            android:layout_width="match_parent"
-                            android:layout_height="63dp" />
-
-                        <TextView
-                            android:id="@+id/textView53"
-                            android:layout_width="182dp"
-                            android:layout_height="2dp"
-                            android:background="#e55854" />
-
-                        <TextView
-                            android:id="@+id/textNombreDirectorCertificado"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:text="Nombre del administrador" />
-
-                        <TextView
-                            android:id="@+id/textView56"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:text="DIRECTOR" />
                     </LinearLayout>
 
                 </LinearLayout>
