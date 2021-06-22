@@ -24,7 +24,7 @@ import java.util.Calendar;
 public class EditarCursoActivity extends AppCompatActivity implements View.OnClickListener {
 
     //definicion de variables: para capturar los valores de elegir un ccurso en registro de curso
-    String idCurso, nombreCurso, fechaInicio, fechaFinal, duracion, precio;
+    String idC, nombreC, fechaInicioC, fechaFinalC, duracionC, precioC;
 
     TextView txtIdCursoEditar;
     EditText txtNombreCursoEditar, txtFechaInicioCursoEditar, txtFechaFinCursoEditar, txtDuracionCursoEditar, txtPrecioCursoEditar;
@@ -60,12 +60,12 @@ public class EditarCursoActivity extends AppCompatActivity implements View.OnCli
         if (parametrosExtra != null){
             try {
                 //usamos las variables declaradas
-                idCurso = parametrosExtra.getString("idCurso");
-                nombreCurso = parametrosExtra.getString("nombreCurso");
-                fechaInicio = parametrosExtra.getString("fechaInicioCurso");
-                fechaFinal = parametrosExtra.getString("fechaFinCurso");
-                duracion = parametrosExtra.getString("duracionCurso");
-                precio = parametrosExtra.getString("precioCurso");
+                idC = parametrosExtra.getString("idCurso");
+                nombreC = parametrosExtra.getString("nombreCurso");
+                fechaInicioC = parametrosExtra.getString("fechaInicioCurso");
+                fechaFinalC = parametrosExtra.getString("fechaFinCurso");
+                duracionC = parametrosExtra.getString("duracionCurso");
+                precioC = parametrosExtra.getString("precioCurso");
 
             }catch (Exception ex){ //ex recibe el tipo de error
                 Toast.makeText(getApplicationContext(), "Error al procesar la solicitud "+ex.toString(),
@@ -74,12 +74,12 @@ public class EditarCursoActivity extends AppCompatActivity implements View.OnCli
         }
 
         //presentar los datos recibidos de curso en pantalla
-        txtIdCursoEditar.setText(idCurso);
-        txtNombreCursoEditar.setText(nombreCurso);
-        txtFechaInicioCursoEditar.setText(fechaInicio);
-        txtFechaFinCursoEditar.setText(fechaFinal);
-        txtDuracionCursoEditar.setText(duracion);
-        txtPrecioCursoEditar.setText(precio);
+        txtIdCursoEditar.setText(idC);
+        txtNombreCursoEditar.setText(nombreC);
+        txtFechaInicioCursoEditar.setText(fechaInicioC);
+        txtFechaFinCursoEditar.setText(fechaFinalC);
+        txtDuracionCursoEditar.setText(duracionC);
+        txtPrecioCursoEditar.setText(precioC);
 
         //instanciar /construir la base de datos en el objeto mi bdd
         miBdd= new BaseDatos(getApplicationContext());
@@ -118,7 +118,7 @@ public class EditarCursoActivity extends AppCompatActivity implements View.OnCli
                 } else { //PRECIO diferente de 0
                     float precio2 = Float.parseFloat(precio);
                     if (precio2 > 0) {
-                        miBdd.actualizarCurso(nombreCurso, fechaInicio,fechaFinal, duracion2, precio2, idCurso);
+                        miBdd.actualizarCurso(nombreCurso, fechaInicio,fechaFinal, duracion2, precio2, idC);
                         Toast.makeText(getApplicationContext(), "Actualizacion de curso exitosa",
                                 Toast.LENGTH_LONG).show();
                         cancelarEditarCurso(null); //invocando al metodo volverCliente
@@ -189,27 +189,38 @@ public class EditarCursoActivity extends AppCompatActivity implements View.OnCli
     }
 
     public boolean validarFechaInicio(){
-        if (Anio_inicio >= Anio_act && Mes_inicio >= Mes_act && Dia_inicio >= Dia_act) {
+        String fechaInicioEditar = (Dia_inicio + "/" + (Mes_inicio + 1) + "/" + Anio_inicio);
+        String fechaFinEditar = txtFechaInicioCursoEditar.getText().toString();
+
+        if(fechaInicioEditar.compareTo(fechaFinEditar) <= 0 && Anio_inicio >= Anio_act && Mes_inicio >= Mes_act && Dia_inicio >= Dia_act){
             txtFechaInicioCursoEditar.setText(Dia_inicio + "/" + (Mes_inicio + 1) + "/" + Anio_inicio);
             Toast.makeText(getApplicationContext(), "Fecha correcta",Toast.LENGTH_LONG).show();
             return true;
         } else {
             Toast.makeText(getApplicationContext(), "Fecha seleccionada es incorrecta", Toast.LENGTH_LONG).show();
             //txtFechaInicioCursoEditar.setText("");
-            txtFechaInicioCursoEditar.setText(fechaInicio);
+            txtFechaInicioCursoEditar.setText(fechaInicioC);
             return false;
         }
     }
 
     public boolean validarFechaFin(){
-        if (Anio_fin >= Anio_inicio && Mes_fin >= Mes_inicio && Dia_fin >= Dia_inicio) {
+
+        //devuelve 0 -> fecha1=fecha2
+        //devuelve mayor a 0 -> fecha1>fecha2
+        //devuelve menor a 0 -> fecha1<fecha2
+
+        String fechaInicioEditar = txtFechaInicioCursoEditar.getText().toString();
+        String fechaFinEditar = (Dia_fin+ "/" + (Mes_fin + 1) + "/" + Anio_fin);
+
+        if (fechaFinEditar.compareTo(fechaInicioEditar) >= 0) {
             txtFechaFinCursoEditar.setText(Dia_fin+ "/" + (Mes_fin + 1) + "/" + Anio_fin);
             Toast.makeText(getApplicationContext(), "Fecha correcta",Toast.LENGTH_LONG).show();
             return true;
         } else {
             Toast.makeText(getApplicationContext(), "Seleccione una fecha mayor a la fecha de inicio", Toast.LENGTH_LONG).show();
             //txtFechaFinCursoEditar.setText("");
-            txtFechaFinCursoEditar.setText(fechaFinal);
+            txtFechaFinCursoEditar.setText(fechaFinalC);
             return false;
         }
     }

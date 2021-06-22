@@ -60,32 +60,13 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textView"
-                            android:layout_width="111dp"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/texto_form"
-                            android:drawablePadding="12dp"
-                            android:ems="10"
-                            android:inputType="textPersonName"
-                            android:paddingLeft="20sp"
-                            android:text="Curso"
-                            android:textColor="#6E7692"
-                            android:textColorHint="#6E7692"
-                            android:textSize="22sp" />
-
-                        <TextView
-                            android:id="@+id/textView35"
-                            android:layout_width="20dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1" />
-
-                        <TextView
                             android:id="@+id/txtNombreCursoEstudiantes"
-                            android:layout_width="224dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/texto_form"
                             android:drawablePadding="12dp"
                             android:ems="10"
+                            android:gravity="center_horizontal"
                             android:inputType="textPersonName"
                             android:paddingLeft="20sp"
                             android:text=""
@@ -261,6 +242,7 @@
                 android:background="#e55854"
                 android:orientation="vertical"
                 android:paddingLeft="20sp"
+                android:paddingTop="20sp"
                 android:paddingRight="20sp"
                 android:paddingBottom="20sp">
 

@@ -130,16 +130,16 @@ public class GestionCursosActivity extends AppCompatActivity {
 
         if(id == R.id.gestionCursos){
             //proceso de cada boton
-            Toast.makeText(this, "gestion de Cursos" ,Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Gestión de Cursos" ,Toast.LENGTH_LONG).show();
 
             //abriendo la ventana de gestion de cursos
-            Intent ventanaGestionCursos=new Intent(getApplicationContext(),RegistroCursosActivity.class);
-            startActivity(ventanaGestionCursos); //solicitamos que habra el menu
+            Intent ventanaCursos=new Intent(getApplicationContext(),RegistroCursosActivity.class);
+            startActivity(ventanaCursos); //solicitamos que habra el menu
             finish(); //cerrando la activity
 
         }else if(id == R.id.gestionEstudiantes){
 
-            Toast.makeText(this, "gestion de Estudiantes" ,Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Gestión de Estudiantes" ,Toast.LENGTH_LONG).show();
             Intent ventanaEstudiantes=new Intent(getApplicationContext(),EstudiantesActivity.class); //construyendo un objeto de tipo ventana para poder abrir la ventana de login
             startActivity(ventanaEstudiantes); //solicitamos que habra el formulario de login
             finish(); //cerrando la activity

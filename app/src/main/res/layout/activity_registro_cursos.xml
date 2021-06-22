@@ -62,7 +62,7 @@
                         android:drawablePadding="12dp"
                         android:ems="10"
                         android:hint="Nombre Curso"
-                        android:inputType="textPersonName"
+                        android:inputType="textCapCharacters"
                         android:paddingLeft="20sp"
                         android:textColor="#6E7692"
                         android:textColorHint="#6E7692"
