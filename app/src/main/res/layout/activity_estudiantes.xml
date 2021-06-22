@@ -144,11 +144,19 @@
         <Spinner
             android:id="@+id/comboCursos"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="28dp"
+            android:background="@drawable/texto_form"
+            android:paddingLeft="19sp" />
+
+        <TextView
+            android:id="@+id/txtCursoSeleccionado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Curso seleccionado:" />
 
         <LinearLayout
             android:layout_width="385dp"
-            android:layout_height="80dp"
+            android:layout_height="109dp"
             android:orientation="horizontal"
             android:padding="15dp">
 

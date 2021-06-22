@@ -11,14 +11,21 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 /*
 @autores:Sandoval,sanchez,Robayo
-@creación/ 19/06/2021
+@creación/ 21/06/2021
 @fModificación 19/06/2021
 @descripción: inicio de sesion.
 */
@@ -31,20 +38,57 @@ public class EstudiantesActivity extends AppCompatActivity {
     //salida
     ListView lstEstudiantes;
     ArrayList<String> listaEstudiantes = new ArrayList<>();
+
+    //Spiner***********************
+    Spinner conboCursos; //defino variable para el spiner
+    TextView txtCursoSeleccionado;
+    //defino unas listas
+    ArrayList<String> listaCursos;  //representa los datos que se muestran en el combo
+    Cursor cursosObtenidos; //declaracion global para trabajat con los cursos.
+    String cursoEstudiante;
+    //*********************************
+
     // declaracion del cursor
     Cursor estudiantesObtenidos; //declaracion global para usarla desde culquier metodo
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estudiantes);
-        //mapero de elementos
+        //mapeo de elementos
         txtCedulaEstudiante = (EditText) findViewById(R.id.txtcedulaEst);
         txtNombreEstudiante = (EditText) findViewById(R.id.txtNombresEst);
         txtApellidoEstudiante = (EditText) findViewById(R.id.txtapellidosEst);
         txtTelefonoEstudiante = (EditText) findViewById(R.id.txtTelefonoEst);
         txtEmailEstudiante = (EditText) findViewById(R.id.txtEmailEst);
         lstEstudiantes = (ListView) findViewById(R.id.lstEstudiantes);
+        //mapeo spiner************
+        txtCursoSeleccionado=(TextView)findViewById(R.id.txtCursoSeleccionado);
+        conboCursos = (Spinner) findViewById(R.id.comboCursos);
+        //************************
         bdd = new BaseDatos(getApplicationContext()); // instanciando el objeto para llamar a los metodos de la base de datos
+        //llenar spiner************
+        consultarCursos();
+        //cuando seleccione un elemento
+        conboCursos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //que hacer cuando seleccione
+                if(position != 0){
+                    cursoEstudiante=listaCursos.get(position);
+                }else{
+                    cursoEstudiante="";
+                }
+                txtCursoSeleccionado.setText(cursoEstudiante);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        //***************************
+
         consultarDatos(); //llamando al metodo para cargar los datos de clietnes en el listview
         //generar acciones cuando se da clic sobre un elemento de la lista de clientes
         lstEstudiantes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -60,6 +104,7 @@ public class EstudiantesActivity extends AppCompatActivity {
                 String apellidoEstudiante = estudiantesObtenidos.getString(3);
                 String telefonoCliente = estudiantesObtenidos.getString(4);
                 String emailEstudiante = estudiantesObtenidos.getString(5);
+                String cursoEstudiante = estudiantesObtenidos.getString(6);
                 //generando el objeto para abrir la ventana de edicion/eliminacion de estudiantes enviando los datos del estudiante como parametros
                 Intent ventanaEditarEstudiante = new Intent(getApplicationContext(), ActualizarEliminarEstudiantesActivity.class);
                 //enviar parametros al intent
@@ -69,6 +114,7 @@ public class EstudiantesActivity extends AppCompatActivity {
                 ventanaEditarEstudiante.putExtra("apellido", apellidoEstudiante);
                 ventanaEditarEstudiante.putExtra("telefono", telefonoCliente);
                 ventanaEditarEstudiante.putExtra("email", emailEstudiante);
+                ventanaEditarEstudiante.putExtra("curso", cursoEstudiante);
                 startActivity(ventanaEditarEstudiante); //solicitando que se abra la ventana de edicion /eliminacion
                 finish(); //cerando la ventana actual
             }
@@ -154,7 +200,7 @@ public class EstudiantesActivity extends AppCompatActivity {
                                         Toast.LENGTH_LONG).show(); //mostrando correo invalido
                             } else {
                                 //proceso de insercion en la base de datos
-                                bdd.agregarEstudiante(cedula,nombre,apellido,telefono,email); //insercion en la tabla cliente
+                                bdd.agregarEstudiante(cedula,nombre,apellido,telefono,email,cursoEstudiante); //insercion en la tabla cliente
                                 limpiarCampos(null); //liampiando los cmapos del formulario
                                 //presentando un mensaje de confirmacion
                                 Toast.makeText(getApplicationContext(),"Datos guardados",Toast.LENGTH_LONG).show();
@@ -220,5 +266,57 @@ public class EstudiantesActivity extends AppCompatActivity {
         }
         return true;
     }
+    //******************* trabajando con spiner ************
+    public void consultarCursos(){
+        cursosObtenidos=bdd.obtenerCursos(); // consultando los cursos y guardandoles en un cursor
+        //validar si hay datos
+        if (cursosObtenidos != null ){ // si es diferente de null
+            //proceso cuando si hay cursos en la bdd
+             listaCursos = new ArrayList<String>();
+             listaCursos.add("Curso que va a tomar");
+             for (cursosObtenidos.moveToFirst(); !cursosObtenidos.isAfterLast(); cursosObtenidos.moveToNext()){
+                 String id=cursosObtenidos.getString(0).toString(); //capturando el id de lciente
+                 String nombre = cursosObtenidos.getString(1) ;// Capturando el nombre
+                 String fechaInicio = cursosObtenidos.getString(2); //capturando la fecha de inicio
+                 if(validarFechaCursos(fechaInicio)==true){
+                     //construyendo las filas para presentar datos en el listview ej => 1: karate
+                     listaCursos.add(nombre);
+                     //creando un adaptador para poder presentar los datos en el espiner
+                     ArrayAdapter<CharSequence> adaptador= new ArrayAdapter(this, android.R.layout.simple_spinner_item,listaCursos);
+                     conboCursos.setAdapter(adaptador); //oresentando el adaptador dentro del spiner.
+                     //ArrayAdapter<String> adaptadorEstudiantes = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,listaEstudiantes);
+                     //lstEstudiantes.setAdapter(adaptadorEstudiantes); //presentando el adaptador de clientes dentro del list view
+                 }
+
+             }
+
+        }else{
+            Toast.makeText(getApplicationContext(),"no existen cursos registrados para matricular un estudiante",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public boolean validarFechaCursos(String fechaInicioCursoString){
+        //formato que quiero de  fecha
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            //obtener fecha de hoy y se lo guarda en stringFechaHoy con tipo fecha
+            String stringFechaHoy = df.format(Calendar.getInstance().getTime());
+            //casting de fechas a tipo Date
+            Date fechaInicioCurso = df.parse(fechaInicioCursoString);
+            Date fechaHoy =df.parse(stringFechaHoy);
+            //validar que no sea igual o menos a la fecha actual
+
+            if(fechaInicioCurso.before(fechaHoy)){ // si esta eligiendo el curso con fecha vencida
+               // Toast.makeText(getApplicationContext(), "ya no se puede matricular el curso ya inicio o finalizo", Toast.LENGTH_LONG).show();
+                return false;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            //Toast.makeText(getApplicationContext(), "Error de formato en la fecha", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
+    }
+    //**********************************************
 
 }

@@ -22,9 +22,9 @@ import java.util.regex.Pattern;
 */
 public class ActualizarEliminarEstudiantesActivity extends AppCompatActivity {
     //definicion de variables
-    String id,cedula,apellido,nombre,telefono,email; // variables para capturar valores que vienen cmo parametro
+    String id,cedula,apellido,nombre,telefono,email,curso; // variables para capturar valores que vienen cmo parametro
     //definicion de objetos que vienen del xml
-    TextView txtIdEstudianteEditar;
+    TextView txtIdEstudianteEditar,txtCursoEstudianteEditar;
     EditText txtCedulaEstudianteEditar,txtNombreEstudianteEditar,txtApellidoEstudianteEditar,
             txtTelefonoEstudianteEditar, txtEmailEstudianteEditar;
     //objeto para manejar conexciones a BDD
@@ -36,6 +36,7 @@ public class ActualizarEliminarEstudiantesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_actualizar_eliminar_estudiantes);
         //mapeo de elmentos
         txtIdEstudianteEditar=(TextView)findViewById(R.id.txtIdEst);
+        txtCursoEstudianteEditar=(TextView)findViewById(R.id.txtCursoEst);
         txtCedulaEstudianteEditar=(EditText)findViewById(R.id.txtcedulaEst);
         txtNombreEstudianteEditar=(EditText)findViewById(R.id.txtNombresEst);
         txtApellidoEstudianteEditar=(EditText)findViewById(R.id.txtapellidosEst);
@@ -52,6 +53,7 @@ public class ActualizarEliminarEstudiantesActivity extends AppCompatActivity {
                 apellido = parametrosExtra.getString("apellido");
                 telefono = parametrosExtra.getString("telefono");
                 email = parametrosExtra.getString("email");
+                curso = parametrosExtra.getString("curso");
 
             }catch (Exception ex){
                 Toast.makeText(getApplicationContext(),"Error al procesar la solicitud" +ex.toString(),Toast.LENGTH_LONG).show();
@@ -62,6 +64,7 @@ public class ActualizarEliminarEstudiantesActivity extends AppCompatActivity {
             txtApellidoEstudianteEditar.setText(apellido);
             txtTelefonoEstudianteEditar.setText(telefono);
             txtEmailEstudianteEditar.setText(email);
+            txtCursoEstudianteEditar.setText(curso);
 
             bdd=new BaseDatos(getApplicationContext()); //instanciacion el objeto a traves del cual se llaman los procesos de la base de datos
 
@@ -109,8 +112,9 @@ public class ActualizarEliminarEstudiantesActivity extends AppCompatActivity {
         String apellido = txtApellidoEstudianteEditar.getText().toString();
         String telefono = txtTelefonoEstudianteEditar.getText().toString();
         String email = txtEmailEstudianteEditar.getText().toString();
+        String curso = txtCursoEstudianteEditar.getText().toString();
         //validaciones
-        if (cedula.isEmpty() ||nombre.isEmpty() ||apellido.isEmpty() ||telefono.isEmpty() || email.isEmpty()){ //si algun campo esta vacio
+        if (cedula.isEmpty() ||nombre.isEmpty() ||apellido.isEmpty() ||telefono.isEmpty() || email.isEmpty() || curso.isEmpty() ){ //si algun campo esta vacio
             Toast.makeText(getApplicationContext(), "Para continuar con el registro llene todos los campos solicitados",
                     Toast.LENGTH_LONG).show(); //mostrando mensaje de campo vacio a traves de un toast
         } else {
@@ -136,7 +140,7 @@ public class ActualizarEliminarEstudiantesActivity extends AppCompatActivity {
                                         Toast.LENGTH_LONG).show(); //mostrando correo invalido
                             } else {
                                 //proceso de insercion en la base de datos
-                                bdd.actualizarEstudiante(cedula,nombre,apellido,telefono,email,id); //modificando en la tabla cliente respecto al id
+                                bdd.actualizarEstudiante(cedula,nombre,apellido,telefono,email,curso,id); //modificando en la tabla cliente respecto al id
                                 Toast.makeText(getApplicationContext(),"Datos guardados",Toast.LENGTH_LONG).show(); //presentando un mensaje de confirmacion
                                 volver(null); //llamo al metodo volver
                             }
