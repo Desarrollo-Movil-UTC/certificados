@@ -49,11 +49,9 @@ public class EstudiantesPorCursoActivity extends AppCompatActivity {
         txtFechaInicioCursoEstudiantes=(TextView) findViewById(R.id.txtFechaInicioCursoEstudiantes);
         txtFechaFinCursoEstudiantes=(TextView) findViewById(R.id.txtFechaFinCursoEstudiantes);
         txtDuracionCursoEstudiantes=(TextView) findViewById(R.id.txtDuracionCursoEstudiantes);
-
         listEstudiantesPorCurso=(ListView) findViewById(R.id.listEstudiantesPorCurso);
         miBdd= new BaseDatos(getApplicationContext());
 
-        consultarEstudiantesPorCurso(); //invoca al metodo de listar cursos
 
         //Recibe los datos de gestion de cursos
         Bundle parametrosExtra = getIntent().getExtras();
@@ -77,18 +75,20 @@ public class EstudiantesPorCursoActivity extends AppCompatActivity {
         txtFechaFinCursoEstudiantes.setText(fechaFinal);
         txtDuracionCursoEstudiantes.setText(duracion+" Horas");
 
+        //llamo a la lista de estudiantes con el id del curso
+        consultarEstudiantesPorCurso(idCurso); //invoca al metodo de listar cursos
         //generar acciones cuando se da click sobre un estudiante
         listEstudiantesPorCurso.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 estudiantesObtenidosPorCurso.moveToPosition(position);
                 //mediante el cursor se obtiene los datos del estudiante seleccionado en la lista
-                String idEst = estudiantesObtenidosPorCurso.getString(0);
-                String cedulaEst = estudiantesObtenidosPorCurso.getString(1);
-                String nombreEst = estudiantesObtenidosPorCurso.getString(2);
-                String apellidoEst = estudiantesObtenidosPorCurso.getString(3);
-                String telefonoEst = estudiantesObtenidosPorCurso.getString(4);
-                String emailEst = estudiantesObtenidosPorCurso.getString(5);
+                String idEst = estudiantesObtenidosPorCurso.getString(5);
+                String cedulaEst = estudiantesObtenidosPorCurso.getString(6);
+                String nombreEst = estudiantesObtenidosPorCurso.getString(7);
+                String apellidoEst = estudiantesObtenidosPorCurso.getString(8);
+                String telefonoEst = estudiantesObtenidosPorCurso.getString(9);
+                String emailEst = estudiantesObtenidosPorCurso.getString(10);
 
                 //manejando el objeto para abrir la ventana de Datos del estudiante
                 Intent ventanaDatosEstudiante = new Intent(getApplicationContext(), DatosEstudianteCursoActivity.class);
@@ -118,15 +118,15 @@ public class EstudiantesPorCursoActivity extends AppCompatActivity {
         finish();
     }
 
-    public void consultarEstudiantesPorCurso(){
+    public void consultarEstudiantesPorCurso(String idDelCurso){
         listaEstudiantesPorCurso.clear(); //vaciando el listado
-        estudiantesObtenidosPorCurso = miBdd.obtenerEstudiantes(); //consultando estudiantes y guardandolos en un cursor
+        estudiantesObtenidosPorCurso = miBdd.obtenerEstudiantesPorCurso(idDelCurso); //consultando estudiantes y guardandolos en un cursor
         if(estudiantesObtenidosPorCurso != null){ //verificando que realmente haya datos dentro de SQLite
             do{
-                String id = estudiantesObtenidosPorCurso.getString(0).toString();
-                String cedula= estudiantesObtenidosPorCurso.getString(1).toString();
-                String nombre = estudiantesObtenidosPorCurso.getString(2).toString();
-                String apellido = estudiantesObtenidosPorCurso.getString(3).toString();
+                String id = estudiantesObtenidosPorCurso.getString(5).toString();
+                String cedula= estudiantesObtenidosPorCurso.getString(6).toString();
+                String nombre = estudiantesObtenidosPorCurso.getString(7).toString();
+                String apellido = estudiantesObtenidosPorCurso.getString(8).toString();
 
                 //construyendo las filas para presentar datos en el ListView
                 listaEstudiantesPorCurso.add(id+": CI.: "+cedula+" Nombres: "+nombre+" "+apellido);

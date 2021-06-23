@@ -151,6 +151,24 @@ public class BaseDatos extends SQLiteOpenHelper {
         }
     }
 
+    public Cursor obtenerEstudiantesPorCurso(String id) {
+        SQLiteDatabase miBdd = getWritableDatabase(); // llamado a la base de datos
+        //crear un cursor donde inserto la consulta sql y almaceno los resultados en el objeto usuario
+        Cursor EstudiantesCurso = miBdd.rawQuery("select " +
+                "curso.nombre_cur , curso.fecha_inicio_cur, curso.fecha_fin_cur , curso.duracion_cur, curso.precio_cur, " +
+                "estudiante.id_est, estudiante.cedula_est , estudiante.nombre_est, estudiante.apellido_est, estudiante.telefono_est, estudiante.email_est " +
+                "from curso inner join estudiante " +
+                "on estudiante.fk_id_curso = curso.id_cur " +
+                "where curso.id_cur =  '"+id+"';", null);
+        //validar si existe o no la consulta
+        if (EstudiantesCurso.moveToFirst()) { //metodo movetofirst nueve al primer elemento encontrado si hay el usuario
+            return EstudiantesCurso; //retornamos los datos encontrados
+        } else {
+            //no se encuentra informacion del curso -> no existe
+            return null; //devuelvo null si no hay
+        }
+    }
+
     public boolean actualizarCurso(String nombreCurso, String fechaInicio, String fechaFin, Integer duracionCurso,
                                    Float precioCurso, String id){
         SQLiteDatabase miBdd = getWritableDatabase(); // objeto para manejar la base de datos
