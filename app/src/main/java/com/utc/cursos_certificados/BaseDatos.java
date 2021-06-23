@@ -4,14 +4,19 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+/*
+@autores:Sandoval,sanchez,Robayo
+@creación/ 19/06/2021
+@fModificación 22/06/2021
+@descripción: Base de Datos
+*/
 public class BaseDatos extends SQLiteOpenHelper {
     private static final String nombreBdd = "bdd_certificados"; //definiendo el nombre dela Bdd
     private static final int versionBdd = 4; //definiendo la version de la BDD
 
     //estructura de la tabla usuarios
     private static final String tablaUsuario = "create table usuario(id_usu integer primary key autoincrement," +
-            "cedula_usu text, nombre_usu text, apellido_usu text, telefono_usu text, is_admin_usu boolean, email_usu text, password_usu text)"; // definiendo estructura de la tabla usuarios
+            "cedula_usu text, nombre_usu text, apellido_usu text, telefono_usu text, email_usu text, password_usu text)"; // definiendo estructura de la tabla usuarios
 
     //estructura de la tabla Curso
     private static final String tablaCurso = "create table curso(id_cur integer primary key autoincrement," +
@@ -20,7 +25,6 @@ public class BaseDatos extends SQLiteOpenHelper {
     //estructura de la tabla Estudiantes
     private static final String tablaEstudiante = "create table estudiante(id_est integer primary key autoincrement," +
             "cedula_est text, nombre_est text, apellido_est text, telefono_est text, email_est text, curso_est text )";
-
 
     //Constructor
     public BaseDatos(Context contexto) {
@@ -31,12 +35,9 @@ public class BaseDatos extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(tablaUsuario); // ejecutando el query DDl(sentencia de definicion de datos) para crear la tabla usuarios con sus atributos
-
         db.execSQL(tablaEstudiante);// ejecutando el query DDl(sentencia de definicion de datos) para crear la tabla clientes
-
         db.execSQL(tablaCurso);
-
-  }
+    }
 
     //proceso 2: metodo que se ejecuta automaticamente cuando se detectan cambios en la version de nuestra bdd
     @Override
@@ -61,11 +62,11 @@ public class BaseDatos extends SQLiteOpenHelper {
      */
 
     //proceso 3: metodo para insertar datos de la tabla usuarios , retorno true cuando inserto y false cuando hay algun error
-    public boolean agregarUsuario(String cedula, String nombre, String apellido, String telefono, Boolean is_admin, String email, String password) {
+    public boolean agregarUsuario(String cedula, String nombre, String apellido, String telefono, String email, String password) {
         SQLiteDatabase miBdd = getWritableDatabase(); //llamando a la base de datos en el objeto mi Ddd
         if (miBdd != null) { //validando que la base de datos exista(q no sea nula)
-            miBdd.execSQL("insert into usuario(cedula_usu, nombre_usu, apellido_usu, telefono_usu, is_admin_usu, email_usu, password_usu) " +
-                    "values('"+ cedula + "','" + nombre + "','" + apellido + "','" + telefono +"','" + is_admin +"','" + email + "','" + password + "')");    //ejecutando la sentencia de insercion de SQL
+            miBdd.execSQL("insert into usuario(cedula_usu, nombre_usu, apellido_usu, telefono_usu, email_usu, password_usu) " +
+                    "values('"+ cedula + "','" + nombre + "','" + apellido + "','" + telefono +"','" + email + "','" + password + "')");    //ejecutando la sentencia de insercion de SQL
             miBdd.close(); //cerrando la conexion a la base de datos.
             return true; // valor de retorno si se inserto exitosamente.
         }
@@ -107,7 +108,8 @@ public class BaseDatos extends SQLiteOpenHelper {
      */
 
     //CURSOS
-    public boolean agregarCurso(String nombreCurso, String fechaInicio, String fechaFin, Integer duracionCurso, Float precioCurso){
+    public boolean agregarCurso(String nombreCurso, String fechaInicio, String fechaFin, Integer duracionCurso,
+                                Float precioCurso){
         SQLiteDatabase miBdd =getWritableDatabase();
         if (miBdd != null) { //validando que la base de datos exista(q no sea nula)
             miBdd.execSQL("insert into curso(nombre_cur, fecha_inicio_cur, fecha_fin_cur,duracion_cur, precio_cur) " +
@@ -181,7 +183,8 @@ public class BaseDatos extends SQLiteOpenHelper {
     }
 
     //metodo para actializar un estudiante
-    public boolean actualizarEstudiante(String cedula, String nombre, String apellido, String telefono, String email, String curso, String id){
+    public boolean actualizarEstudiante(String cedula, String nombre, String apellido, String telefono,
+                                        String email, String curso, String id){
         SQLiteDatabase miBdd = getWritableDatabase(); // objeto para manejar la base de datos
         if(miBdd != null){
             //proceso de actualizacion

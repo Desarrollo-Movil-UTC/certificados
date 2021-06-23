@@ -137,7 +137,8 @@ public class EstudiantesActivity extends AppCompatActivity {
                 //construyendo las filas para presentar datos en el listview ej => 1: bryan sandoval
                 listaEstudiantes.add(id+": "+nombre+" "+apellido);
                 //creando un adaptador para poder presentar los datos del listado de clientes(java)
-                ArrayAdapter<String> adaptadorEstudiantes = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,listaEstudiantes);
+                ArrayAdapter<String> adaptadorEstudiantes = new ArrayAdapter<>(this,
+                        android.R.layout.simple_list_item_1,listaEstudiantes);
                 lstEstudiantes.setAdapter(adaptadorEstudiantes); //presentando el adaptador de clientes dentro del list view
             }while(estudiantesObtenidos.moveToNext()); //movetonext nos dira si ahun existen clientes
 
@@ -282,7 +283,8 @@ public class EstudiantesActivity extends AppCompatActivity {
                      //construyendo las filas para presentar datos en el listview ej => 1: karate
                      listaCursos.add(nombre);
                      //creando un adaptador para poder presentar los datos en el espiner
-                     ArrayAdapter<CharSequence> adaptador= new ArrayAdapter(this, android.R.layout.simple_spinner_item,listaCursos);
+                     ArrayAdapter<CharSequence> adaptador= new ArrayAdapter(this,
+                             android.R.layout.simple_spinner_item,listaCursos);
                      conboCursos.setAdapter(adaptador); //oresentando el adaptador dentro del spiner.
                      //ArrayAdapter<String> adaptadorEstudiantes = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,listaEstudiantes);
                      //lstEstudiantes.setAdapter(adaptadorEstudiantes); //presentando el adaptador de clientes dentro del list view

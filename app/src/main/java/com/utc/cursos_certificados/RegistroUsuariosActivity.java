@@ -44,7 +44,6 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
     }
 
     public void registrarUsuario(View vista){
-        boolean is_admin_usu = true; //definir is_admin como falso por defecto.
         //capturando los valores ingresados por el usuario en variables Java de tipo String
         String cedula= txtCedulaRegistro.getText().toString();
         String nombres=txtNombresRegistro.getText().toString();
@@ -90,7 +89,7 @@ public class RegistroUsuariosActivity extends AppCompatActivity {
                                     } else {
                                         if (password.equals(passwordConfirmada)) {
                                             password = getMD5(password);
-                                            miBdd.agregarUsuario(cedula, nombres, apellidos, telefono, is_admin_usu, email, password);
+                                            miBdd.agregarUsuario(cedula, nombres, apellidos, telefono, email, password);
                                             Toast.makeText(getApplicationContext(), "Usuario registrado correctamente",
                                                     Toast.LENGTH_LONG).show(); //mostrando mensaje de usuario registrado
                                             finish();
