@@ -149,7 +149,7 @@ public class EstudiantesActivity extends AppCompatActivity {
             }while(estudiantesObtenidos.moveToNext()); //movetonext nos dira si ahun existen clientes
 
         }else{
-            Toast.makeText(getApplicationContext(),"no existen Estudiantes",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"No existen Estudiantes",Toast.LENGTH_LONG).show();
         }
 
     }
@@ -186,7 +186,7 @@ public class EstudiantesActivity extends AppCompatActivity {
                     Toast.LENGTH_LONG).show(); //mostrando mensaje de campo vacio a traves de un toast
         } else {
             if(validarCedula(cedula)==false){
-                Toast.makeText(getApplicationContext(), "La cedula es de 10 digitos y no debe contener letras",
+                Toast.makeText(getApplicationContext(), "La cédula es de 10 digitos y no debe contener letras",
                         Toast.LENGTH_LONG).show(); //mostrando mensaje de campo vacio a traves de un toast
             }else {
                 if (contieneSoloLetras(nombre) == false) {
@@ -304,7 +304,7 @@ public class EstudiantesActivity extends AppCompatActivity {
              }
 
         }else{
-            Toast.makeText(getApplicationContext(),"no existen cursos registrados para matricular un estudiante",Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(),"No existen cursos registrados para matricular un estudiante",Toast.LENGTH_LONG).show();
         }
     }
 
