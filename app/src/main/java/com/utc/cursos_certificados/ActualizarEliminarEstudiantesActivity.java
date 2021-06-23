@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +31,9 @@ public class ActualizarEliminarEstudiantesActivity extends AppCompatActivity {
             txtTelefonoEstudianteEditar, txtEmailEstudianteEditar;
     //objeto para manejar conexciones a BDD
     BaseDatos bdd;
-
+    // declaracion del cursor
+    Cursor cursoObtenido; //declaracion global para usarla desde culquier metodo
+    String nombreCurso;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,7 @@ public class ActualizarEliminarEstudiantesActivity extends AppCompatActivity {
         txtApellidoEstudianteEditar=(EditText)findViewById(R.id.txtapellidosEst);
         txtTelefonoEstudianteEditar=(EditText)findViewById(R.id.txtTelefonoEst);
         txtEmailEstudianteEditar=(EditText)findViewById(R.id.txtEmailEst);
+        bdd=new BaseDatos(getApplicationContext()); //instanciacion el objeto a traves del cual se llaman los procesos de la base de datos
         //capturar valores que vienen como parametro
         Bundle parametrosExtra=getIntent().getExtras(); //captura los parametros que se han pasado a esta actividad
         if (parametrosExtra != null){
@@ -58,15 +63,23 @@ public class ActualizarEliminarEstudiantesActivity extends AppCompatActivity {
             }catch (Exception ex){
                 Toast.makeText(getApplicationContext(),"Error al procesar la solicitud" +ex.toString(),Toast.LENGTH_LONG).show();
             }
+
+            //insercion en el formulario
+            cursoObtenido=bdd.obtenerCursoPorId(curso); // consultando estudiantes y guardandoles en un cursor
+            //validar si encontro el curso
+            if (cursoObtenido != null ){ // si es diferrente de null
+                nombreCurso = cursoObtenido.getString(1) ;// Capturando el nombre
+                txtCursoEstudianteEditar.setText(nombreCurso);
+            }else{
+                txtCursoEstudianteEditar.setText(curso);
+            }
+
             txtIdEstudianteEditar.setText(id);
             txtCedulaEstudianteEditar.setText(cedula);
             txtNombreEstudianteEditar.setText(nombre);
             txtApellidoEstudianteEditar.setText(apellido);
             txtTelefonoEstudianteEditar.setText(telefono);
             txtEmailEstudianteEditar.setText(email);
-            txtCursoEstudianteEditar.setText(curso);
-
-            bdd=new BaseDatos(getApplicationContext()); //instanciacion el objeto a traves del cual se llaman los procesos de la base de datos
 
         }
     }
@@ -112,7 +125,7 @@ public class ActualizarEliminarEstudiantesActivity extends AppCompatActivity {
         String apellido = txtApellidoEstudianteEditar.getText().toString();
         String telefono = txtTelefonoEstudianteEditar.getText().toString();
         String email = txtEmailEstudianteEditar.getText().toString();
-        String curso = txtCursoEstudianteEditar.getText().toString();
+        //String curso = txtCursoEstudianteEditar.getText().toString();
         //validaciones
         if (cedula.isEmpty() ||nombre.isEmpty() ||apellido.isEmpty() ||telefono.isEmpty() || email.isEmpty() || curso.isEmpty() ){ //si algun campo esta vacio
             Toast.makeText(getApplicationContext(), "Para continuar con el registro llene todos los campos solicitados",
@@ -140,7 +153,8 @@ public class ActualizarEliminarEstudiantesActivity extends AppCompatActivity {
                                         Toast.LENGTH_LONG).show(); //mostrando correo invalido
                             } else {
                                 //proceso de insercion en la base de datos
-                                bdd.actualizarEstudiante(cedula,nombre,apellido,telefono,email,curso,id); //modificando en la tabla cliente respecto al id
+                                int idCurso = Integer.parseInt(curso);
+                                bdd.actualizarEstudiante(cedula,nombre,apellido,telefono,email,idCurso,id); //modificando en la tabla cliente respecto al id
                                 Toast.makeText(getApplicationContext(),"Datos guardados",Toast.LENGTH_LONG).show(); //presentando un mensaje de confirmacion
                                 volver(null); //llamo al metodo volver
                             }

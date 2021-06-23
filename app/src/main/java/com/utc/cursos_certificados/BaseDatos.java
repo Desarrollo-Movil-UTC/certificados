@@ -12,7 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 */
 public class BaseDatos extends SQLiteOpenHelper {
     private static final String nombreBdd = "bdd_certificados"; //definiendo el nombre dela Bdd
-    private static final int versionBdd = 4; //definiendo la version de la BDD
+    private static final int versionBdd = 5; //definiendo la version de la BDD
 
     //estructura de la tabla usuarios
     private static final String tablaUsuario = "create table usuario(id_usu integer primary key autoincrement," +
@@ -22,9 +22,9 @@ public class BaseDatos extends SQLiteOpenHelper {
     private static final String tablaCurso = "create table curso(id_cur integer primary key autoincrement," +
             "nombre_cur text, fecha_inicio_cur text, fecha_fin_cur text, duracion_cur integer, precio_cur float);";
 
-    //estructura de la tabla Estudiantes
+    //estructura de la tabla Estudiantes /esta relacionada con los cursos para que indique en que curso quiere inscribirse
     private static final String tablaEstudiante = "create table estudiante(id_est integer primary key autoincrement," +
-            "cedula_est text, nombre_est text, apellido_est text, telefono_est text, email_est text, curso_est text )";
+            "cedula_est text, nombre_est text, apellido_est text, telefono_est text, email_est text, fk_id_curso integer, foreign key (fk_id_curso) references curso (id_cur))";
 
     //Constructor
     public BaseDatos(Context contexto) {
@@ -138,6 +138,19 @@ public class BaseDatos extends SQLiteOpenHelper {
         }
     }
 
+    public Cursor obtenerCursoPorId(String id) {
+        SQLiteDatabase miBdd = getWritableDatabase(); // llamado a la base de datos
+        //crear un cursor donde inserto la consulta sql y almaceno los resultados en el objeto usuario
+        Cursor unCurso = miBdd.rawQuery("select * from curso where  id_cur='"+id+"';", null);
+        //validar si existe o no la consulta
+        if (unCurso.moveToFirst()) { //metodo movetofirst nueve al primer elemento encontrado si hay el usuario
+            return unCurso; //retornamos los datos encontrados
+        } else {
+            //no se encuentra informacion del curso -> no existe
+            return null; //devuelvo null si no hay
+        }
+    }
+
     public boolean actualizarCurso(String nombreCurso, String fechaInicio, String fechaFin, Integer duracionCurso,
                                    Float precioCurso, String id){
         SQLiteDatabase miBdd = getWritableDatabase(); // objeto para manejar la base de datos
@@ -155,11 +168,11 @@ public class BaseDatos extends SQLiteOpenHelper {
     // CRUD para Estudiantes
 
     //agregar un nuevo estudiante
-    public boolean agregarEstudiante(String cedula, String nombre, String apellido, String telefono, String email, String curso){
+    public boolean agregarEstudiante(String cedula, String nombre, String apellido, String telefono, String email, Integer id_curso){
         SQLiteDatabase miBdd =getWritableDatabase();
         if (miBdd != null) { //validando que la base de datos exista(q no sea nula)
-            miBdd.execSQL("insert into estudiante(cedula_est, nombre_est, apellido_est,telefono_est, email_est, curso_est) " +
-                    "values  ('"+cedula+"','"+nombre+"','"+apellido+"','"+telefono+"','"+email+"','"+curso+"');");
+            miBdd.execSQL("insert into estudiante(cedula_est, nombre_est, apellido_est,telefono_est, email_est, fk_id_curso) " +
+                    "values  ('"+cedula+"','"+nombre+"','"+apellido+"','"+telefono+"','"+email+"','"+id_curso+"');");
               //ejecutando la sentencia de insercion de SQL
             miBdd.close(); //cerrando la conexion a la base de datos.
             return true; // valor de retorno si se inserto exitosamente.
@@ -183,14 +196,13 @@ public class BaseDatos extends SQLiteOpenHelper {
     }
 
     //metodo para actializar un estudiante
-    public boolean actualizarEstudiante(String cedula, String nombre, String apellido, String telefono,
-                                        String email, String curso, String id){
+    public boolean actualizarEstudiante(String cedula, String nombre, String apellido, String telefono, String email, Integer id_curso, String id){
         SQLiteDatabase miBdd = getWritableDatabase(); // objeto para manejar la base de datos
         if(miBdd != null){
             //proceso de actualizacion
             miBdd.execSQL("update estudiante set cedula_est='"+cedula+"', " +
                     "nombre_est='"+nombre+"', apellido_est='"+apellido+"', " +
-                    "telefono_est='"+telefono+"',email_est='"+email+"', curso_est='"+curso+"' where id_est="+id);
+                    "telefono_est='"+telefono+"',email_est='"+email+"', fk_id_curso='"+id_curso+"' where id_est="+id);
             miBdd.close(); //cerrando la conexion coon la BDD
             return true; //retornamos verdero ya que el proceso de actulaicacion fue exitoso
         }

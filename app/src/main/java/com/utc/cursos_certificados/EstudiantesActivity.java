@@ -45,7 +45,7 @@ public class EstudiantesActivity extends AppCompatActivity {
     //defino unas listas
     ArrayList<String> listaCursos;  //representa los datos que se muestran en el combo
     Cursor cursosObtenidos; //declaracion global para trabajat con los cursos.
-    String cursoEstudiante;
+    Integer cursoEstudiante = 0;
     //*********************************
 
     // declaracion del cursor
@@ -75,11 +75,17 @@ public class EstudiantesActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //que hacer cuando seleccione
                 if(position != 0){
-                    cursoEstudiante=listaCursos.get(position);
+                    cursosObtenidos.moveToPosition(position-1); // moviendo el cursor a la posisicon del curso
+                    //obteniendo la informacion de cada uno de los campos de la fila de cliente seleccionada
+                    String idCursoString = cursosObtenidos.getString(0);
+                    String nombre = cursosObtenidos.getString(1);
+                    int idCurso = Integer.parseInt(idCursoString);
+                    cursoEstudiante=idCurso;
+                    txtCursoSeleccionado.setText(nombre);
                 }else{
-                    cursoEstudiante="";
+                    cursoEstudiante=0;
                 }
-                txtCursoSeleccionado.setText(cursoEstudiante);
+
             }
 
             @Override
@@ -200,13 +206,18 @@ public class EstudiantesActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Ingrese un Email Valido",
                                         Toast.LENGTH_LONG).show(); //mostrando correo invalido
                             } else {
-                                //proceso de insercion en la base de datos
-                                bdd.agregarEstudiante(cedula,nombre,apellido,telefono,email,cursoEstudiante); //insercion en la tabla cliente
-                                limpiarCampos(null); //liampiando los cmapos del formulario
-                                //presentando un mensaje de confirmacion
-                                Toast.makeText(getApplicationContext(),"Datos guardados",Toast.LENGTH_LONG).show();
-                                //actualizar lista de lcientes
-                                consultarDatos(); //recarga el lisntado luego de la insercion
+                                if(cursoEstudiante == 0){
+                                    Toast.makeText(getApplicationContext(), "Seleccione un curso",
+                                            Toast.LENGTH_LONG).show(); //mostrando que no ha seleccinado nada
+                                }else{
+                                    //proceso de insercion en la base de datos
+                                    bdd.agregarEstudiante(cedula,nombre,apellido,telefono,email,cursoEstudiante); //insercion en la tabla cliente
+                                    limpiarCampos(null); //liampiando los cmapos del formulario
+                                    //presentando un mensaje de confirmacion
+                                    Toast.makeText(getApplicationContext(),"Datos guardados",Toast.LENGTH_LONG).show();
+                                    //actualizar lista de lcientes
+                                    consultarDatos(); //recarga el lisntado luego de la insercion
+                                }
                             }
                         }
                     }
@@ -279,16 +290,16 @@ public class EstudiantesActivity extends AppCompatActivity {
                  String id=cursosObtenidos.getString(0).toString(); //capturando el id de lciente
                  String nombre = cursosObtenidos.getString(1) ;// Capturando el nombre
                  String fechaInicio = cursosObtenidos.getString(2); //capturando la fecha de inicio
-                 if(validarFechaCursos(fechaInicio)==true){
+                 //if(validarFechaCursos(fechaInicio)==true){
                      //construyendo las filas para presentar datos en el listview ej => 1: karate
-                     listaCursos.add(nombre);
+                     listaCursos.add(id+": "+ nombre);
                      //creando un adaptador para poder presentar los datos en el espiner
                      ArrayAdapter<CharSequence> adaptador= new ArrayAdapter(this,
                              android.R.layout.simple_spinner_item,listaCursos);
                      conboCursos.setAdapter(adaptador); //oresentando el adaptador dentro del spiner.
                      //ArrayAdapter<String> adaptadorEstudiantes = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,listaEstudiantes);
                      //lstEstudiantes.setAdapter(adaptadorEstudiantes); //presentando el adaptador de clientes dentro del list view
-                 }
+                 //}
 
              }
 
