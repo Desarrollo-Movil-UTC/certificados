@@ -192,17 +192,18 @@
                         android:background="@drawable/texto_form"
                         android:drawablePadding="12dp"
                         android:ems="10"
+                        android:gravity="bottom|top"
                         android:paddingLeft="20sp"
-                        android:text="curso:"
+                        android:text="Curso Inscrito"
                         android:textColor="#6E7692"
                         android:textColorHint="#6E7692"
                         android:textSize="22sp" />
 
                     <LinearLayout
-                        android:layout_width="385dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:padding="15dp">
+                        android:paddingTop="15sp">
 
                         <Button
                             android:id="@+id/button"

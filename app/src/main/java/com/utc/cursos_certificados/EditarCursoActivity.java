@@ -12,7 +12,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /*
 @autores:Sandoval,Sanchez,Robayo
@@ -166,8 +171,9 @@ public class EditarCursoActivity extends AppCompatActivity implements View.OnCli
                     Anio_inicio = anio;
                     Mes_inicio = mes;
                     Dia_inicio = dia;
-                    validarFechaInicio();
-                    //validarFechaFin();
+
+                    String fechaDeInicioEditar = (Dia_inicio+"/"+(Mes_inicio + 1)+"/"+Anio_inicio);
+                    validarFechaInicioCursoEditar(fechaDeInicioEditar);
                 }
             }, Anio_act, Mes_act, Dia_act); //presenta picker con la fecha actual
             datePickerDialog.show(); //mostrando el date picker
@@ -181,47 +187,74 @@ public class EditarCursoActivity extends AppCompatActivity implements View.OnCli
                     Anio_fin = anio;
                     Mes_fin = mes;
                     Dia_fin = dia;
-                    validarFechaFin();
+
+                    String fechaDeFinEditar = (Dia_fin+"/"+(Mes_fin + 1)+"/"+Anio_fin);
+                    validarFechaFinCursoEditar(fechaDeFinEditar);
                 }
             }, Anio_act, Mes_act, Dia_act); //presenta picker con la fecha actual
             datePickerDialog.show(); //mostrando el date picker
         }
     }
 
-    public boolean validarFechaInicio(){
-        String fechaInicioEditar = (Dia_inicio + "/" + (Mes_inicio + 1) + "/" + Anio_inicio);
-        String fechaFinEditar = txtFechaInicioCursoEditar.getText().toString();
+    public boolean validarFechaInicioCursoEditar(String fechaInicioCursoString){
+        //formato de  fecha
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            //obtener fecha de hoy y se lo guarda en stringFechaHoy con tipo fecha
+            String stringFechaHoy = df.format(Calendar.getInstance().getTime());
 
-        if(fechaInicioEditar.compareTo(fechaFinEditar) <= 0 && Anio_inicio >= Anio_act && Mes_inicio >= Mes_act && Dia_inicio >= Dia_act){
-            txtFechaInicioCursoEditar.setText(Dia_inicio + "/" + (Mes_inicio + 1) + "/" + Anio_inicio);
-            Toast.makeText(getApplicationContext(), "Fecha correcta",Toast.LENGTH_LONG).show();
-            return true;
-        } else {
-            Toast.makeText(getApplicationContext(), "Fecha seleccionada es incorrecta", Toast.LENGTH_LONG).show();
-            //txtFechaInicioCursoEditar.setText("");
-            txtFechaInicioCursoEditar.setText(fechaInicioC);
+            //se obtiene la fecha del editText
+            String fechaFinEditar = txtFechaFinCursoEditar.getText().toString();
+
+            //casting de fechas a tipo Date
+            Date fechaHoy =df.parse(stringFechaHoy);
+            Date stringFechaFin =df.parse(fechaFinEditar);
+            Date fechaInicioEditar = df.parse(fechaInicioCursoString);
+
+            //si la fecha de incio editada es mayor a la actual y menor a la fecha final
+            //si fecha inicio esta despues de la fecha actual devuelve true
+            if(fechaInicioEditar.after(fechaHoy) && fechaInicioEditar.before(stringFechaFin) || fechaInicioEditar.equals(stringFechaFin)){
+                txtFechaInicioCursoEditar.setText(Dia_inicio+"/"+(Mes_inicio + 1)+"/"+Anio_inicio);
+                Toast.makeText(getApplicationContext(), "Fecha de inicio editada correctamente", Toast.LENGTH_LONG).show();
+                return false;
+            }else{
+                Toast.makeText(getApplicationContext(), "Fecha seleccionada es incorrecta", Toast.LENGTH_LONG).show();
+                txtFechaInicioCursoEditar.setText(fechaInicioC);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Error de formato en la fecha", Toast.LENGTH_LONG).show();
             return false;
         }
+        return true;
     }
 
-    public boolean validarFechaFin(){
+    public boolean validarFechaFinCursoEditar(String fechaFinCursoString){
+        //formato de  fecha
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            //se obtiene la fecha del editText
+            String fechaInicioEditar = txtFechaInicioCursoEditar.getText().toString();
 
-        //devuelve 0 -> fecha1=fecha2
-        //devuelve mayor a 0 -> fecha1>fecha2
-        //devuelve menor a 0 -> fecha1<fecha2
+            //casting de fechas a tipo Date
+            Date stringFechaInicio =df.parse(fechaInicioEditar);
+            Date fechaFinEditar = df.parse(fechaFinCursoString);
 
-        String fechaInicioEditar = txtFechaInicioCursoEditar.getText().toString();
-        String fechaFinEditar = (Dia_fin+ "/" + (Mes_fin + 1) + "/" + Anio_fin);
-
-        if (fechaFinEditar.compareTo(fechaInicioEditar) >= 0) {
-            txtFechaFinCursoEditar.setText(Dia_fin+ "/" + (Mes_fin + 1) + "/" + Anio_fin);
-            Toast.makeText(getApplicationContext(), "Fecha correcta",Toast.LENGTH_LONG).show();
-            return true;
-        } else {
-            Toast.makeText(getApplicationContext(), "Seleccione una fecha mayor a la fecha de inicio", Toast.LENGTH_LONG).show();
-            //txtFechaFinCursoEditar.setText("");
-            txtFechaFinCursoEditar.setText(fechaFinalC);
+            //si la fecha final editada es mayor a la fecha de inicio
+            //si fecha final esta despues de la fecha inicio o es igual devuelve true
+            if(fechaFinEditar.after(stringFechaInicio) || fechaFinEditar.equals(stringFechaInicio)){
+                txtFechaFinCursoEditar.setText(Dia_fin+"/"+(Mes_fin + 1)+"/"+Anio_fin);
+                Toast.makeText(getApplicationContext(), "Fecha de finalizacion editada correctamente", Toast.LENGTH_LONG).show();
+                return false;
+            }else{
+                Toast.makeText(getApplicationContext(), "Seleccione una fecha mayor a la fecha de inicio", Toast.LENGTH_LONG).show();
+                txtFechaFinCursoEditar.setText(fechaFinalC);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Error de formato en la fecha", Toast.LENGTH_LONG).show();
             return false;
         }
+        return true;
     }
 }

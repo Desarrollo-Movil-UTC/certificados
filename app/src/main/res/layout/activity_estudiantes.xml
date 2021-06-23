@@ -146,9 +146,13 @@
         <Spinner
             android:id="@+id/comboCursos"
             android:layout_width="match_parent"
-            android:layout_height="28dp"
+            android:layout_height="30dp"
             android:background="@drawable/texto_form"
-            android:paddingLeft="19sp" />
+            android:ems = "10"
+            android:paddingLeft="20sp"
+            android:textColor="#6E7692"
+            android:textColorHint="#6E7692"
+            android:textSize="22sp"/>
 
         <TextView
             android:id="@+id/txtCursoSeleccionado"
