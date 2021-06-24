@@ -21,7 +21,7 @@ public class DatosEstudianteCursoActivity extends AppCompatActivity {
     String cedula, nombre, apellido, telefono, email, cursoInscrito;
 
     //variables para capturar datos del curso
-    String fechaIni, fechaFin, duracionC;
+    String idC, fechaIni, fechaFin, duracionC;
 
     TextView txtCedulaDatosEstudiante, txtNombresDatosEstudiante, txtApellidosDatosEstudiante, txtTelefonoDatosEstudiante,
             txtEmailDatosEstudiante, txtCursoInscritoDatosEstudiante;
@@ -50,6 +50,7 @@ public class DatosEstudianteCursoActivity extends AppCompatActivity {
                 telefono = parametrosExtra.getString("telefonoEst");
                 email = parametrosExtra.getString("emailEst");
 
+                idC = parametrosExtra.getString("idCurso");
                 cursoInscrito = parametrosExtra.getString("nombreCurso");
                 fechaIni = parametrosExtra.getString("fechaInicio");
                 fechaFin = parametrosExtra.getString("fechaFinal");
@@ -71,6 +72,7 @@ public class DatosEstudianteCursoActivity extends AppCompatActivity {
     //Boton Salir
     public void salirDatosEstudiante(View vista) {
         Intent ventanaListaEstudiantesPorCurso = new Intent(getApplicationContext(), EstudiantesPorCursoActivity.class);
+        ventanaListaEstudiantesPorCurso.putExtra("idCurso", idC);
         ventanaListaEstudiantesPorCurso.putExtra("nombreCurso", cursoInscrito);
         ventanaListaEstudiantesPorCurso.putExtra("fechaInicioCurso", fechaIni);
         ventanaListaEstudiantesPorCurso.putExtra("fechaFinCurso", fechaFin);
@@ -93,6 +95,7 @@ public class DatosEstudianteCursoActivity extends AppCompatActivity {
         ventanaCertificadoEstudiante.putExtra("nombre", nombre);
         ventanaCertificadoEstudiante.putExtra("apellido", apellido);
 
+        ventanaCertificadoEstudiante.putExtra("idCur", idC);
         ventanaCertificadoEstudiante.putExtra("cursoInscrito", cursoInscrito);
         ventanaCertificadoEstudiante.putExtra("fechaIni", fechaIni);
         ventanaCertificadoEstudiante.putExtra("fechaFin", fechaFin);

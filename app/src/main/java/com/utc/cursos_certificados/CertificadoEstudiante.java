@@ -23,7 +23,7 @@ public class CertificadoEstudiante extends AppCompatActivity {
     String nombreEstudiante, apellidoEstudiante;
 
     //datos del curso
-    String nombreCurso, duracionCurso, fechaInicio, fechaFin;
+    String idCurso, nombreCurso, duracionCurso, fechaInicio, fechaFin;
     String nombreDirector;
 
     TextView textNombreCompletoEstudianteCertificado,
@@ -49,6 +49,7 @@ public class CertificadoEstudiante extends AppCompatActivity {
                 nombreEstudiante = parametrosExtra.getString("nombre");
                 apellidoEstudiante = parametrosExtra.getString("apellido");
 
+                idCurso = parametrosExtra.getString("idCur");
                 nombreCurso = parametrosExtra.getString("cursoInscrito");
                 fechaInicio = parametrosExtra.getString("fechaIni");
                 fechaFin = parametrosExtra.getString("fechaFin");
@@ -71,6 +72,7 @@ public class CertificadoEstudiante extends AppCompatActivity {
     //Boton Salir
     public void salirCertificadoEstudiante(View vista) {
         Intent ventanaListaEstudiantesPorCurso = new Intent(getApplicationContext(), EstudiantesPorCursoActivity.class);
+        ventanaListaEstudiantesPorCurso.putExtra("idCurso", idCurso);
         ventanaListaEstudiantesPorCurso.putExtra("nombreCurso", nombreCurso);
         ventanaListaEstudiantesPorCurso.putExtra("fechaInicioCurso", fechaInicio);
         ventanaListaEstudiantesPorCurso.putExtra("fechaFinCurso", fechaFin);
