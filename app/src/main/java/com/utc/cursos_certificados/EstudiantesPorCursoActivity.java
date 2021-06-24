@@ -100,6 +100,7 @@ public class EstudiantesPorCursoActivity extends AppCompatActivity {
                 ventanaDatosEstudiante.putExtra("emailEst", emailEst);
 
                 //datos del curso
+                ventanaDatosEstudiante.putExtra("idCurso", idCurso);
                 ventanaDatosEstudiante.putExtra("nombreCurso", nombreCurso);
                 ventanaDatosEstudiante.putExtra("fechaInicio", fechaInicio);
                 ventanaDatosEstudiante.putExtra("fechaFinal", fechaFinal);
